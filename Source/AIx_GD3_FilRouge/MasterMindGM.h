@@ -37,4 +37,6 @@ public:
 	void CreateSolution();
 	UFUNCTION(BlueprintCallable)
 	bool CheckAnswer(TArray<uint8> Answer);
+	TArray<int> CheckWhoIsInRightPlace(TArray<uint8> ParamAnswer, TArray<uint8> ParamSolution);
+	void ShowResultToPlayer(uint8 ParamGoodPlace, uint8 ParamBadPlace);
 };

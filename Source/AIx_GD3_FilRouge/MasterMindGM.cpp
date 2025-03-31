@@ -48,7 +48,73 @@ void AMasterMindGM::CreateSolution()
 
 bool AMasterMindGM::CheckAnswer(TArray<uint8> Answer)
 {
-	UE_LOG(LogTemp,Warning,TEXT("CheckAnswer Done"));
-	return true;
+	// On a Solution et Answer, faut les comparer
+
+	TArray<int> TempRightPlace[4];
+	bool result = true;
+	//Nbr reponses bien placés
+	uint8 GoodPlaces = 0;
+	uint8 BadPlaces = 0;
+	//On retient quels entrée sont utilisables encore
+	TArray<bool> SolutionsAllowed {true, true, true, true};
+	TArray<bool> AnswersAllowed {true, true, true, true};
+	
+		for(uint8 i = 0; i < 4; i++)
+		{
+			if(Solution[i] == Answer[i])
+			{
+				GoodPlaces++;
+				SolutionsAllowed[i] = false;
+				AnswersAllowed[i] = false;
+			}
+			else
+			{
+				result = false;
+			}
+		}
+
+	for(uint8 i = 0; i < 4; i++)
+	{
+		if(AnswersAllowed[i])
+		{
+			for(uint8 j = 0; j < 4; j++)
+			{
+				if(SolutionsAllowed[j] && Answer[i] == Solution[j])
+				{
+					BadPlaces++;
+					SolutionsAllowed[j] = false;
+					break;
+				}
+			}
+		}
+	}
+	//ShowResultToPlayer(GoodPlaces, BadPlaces);
+	return result;
+	}
+
+// Au final je m'en sers pas
+TArray<int> AMasterMindGM::CheckWhoIsInRightPlace(TArray<uint8> ParamAnswer, TArray<uint8> ParamSolution)
+{
+	TArray<int> RetRightPlace;
+	for(int i = 0; i < 4; i++)
+	{
+		if(ParamAnswer[i] == Solution[i])
+		{
+			RetRightPlace[i] = 1;
+		}
+		else
+		{
+			RetRightPlace[i] = 0;
+		}
+	}
+	
+	return RetRightPlace;
 }
+
+void AMasterMindGM::ShowResultToPlayer(uint8 ParamGoodPlaces, uint8 ParamBadPlaces)
+{
+	GEngine->AddOnScreenDebugMessage(-5, 5.f, FColor::Yellow, FString::Printf(TEXT("Good place : %d"), ParamGoodPlaces));
+	GEngine->AddOnScreenDebugMessage(-6, 5.f, FColor::Yellow, FString::Printf(TEXT("Bad place : %d"), ParamBadPlaces));
+}
+
 
