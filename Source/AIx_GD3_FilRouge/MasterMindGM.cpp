@@ -88,7 +88,7 @@ bool AMasterMindGM::CheckAnswer(TArray<uint8> Answer)
 		}
 	}
 	
-	SpawnNewAnswer();
+	SpawnNewAnswer((int)GoodPlaces,(int)WrongPlaces);
 	
 	OnSolutionChecked.Broadcast(GoodPlaces,WrongPlaces);
 	UE_LOG(LogTemp,Warning,TEXT("CheckAnswer Done"));

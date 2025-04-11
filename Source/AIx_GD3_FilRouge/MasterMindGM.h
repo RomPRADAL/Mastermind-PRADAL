@@ -28,7 +28,7 @@ public:
 
 	//UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ZZZ")
 	UFUNCTION(BlueprintImplementableEvent, Category = "SuperFonctions")
-	void SpawnNewAnswer();
+	void SpawnNewAnswer(int GoodPlace, int WrongPlace);
 
 protected:
 	// Called when the game starts or when spawned
