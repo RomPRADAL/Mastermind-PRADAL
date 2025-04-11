@@ -25,7 +25,11 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TArray<uint8> Solution;
-	
+
+	//UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "ZZZ")
+	UFUNCTION(BlueprintImplementableEvent, Category = "SuperFonctions")
+	void SpawnNewAnswer();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

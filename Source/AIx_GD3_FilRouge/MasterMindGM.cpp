@@ -3,6 +3,8 @@
 
 #include "MasterMindGM.h"
 
+#include "K2Node_SpawnActorFromClass.h"
+
 // Sets default values
 AMasterMindGM::AMasterMindGM()
 {
@@ -53,6 +55,7 @@ bool AMasterMindGM::CheckAnswer(TArray<uint8> Answer)
 	uint8 WrongPlaces = 0;
 	TArray<bool> SolutionsAllowed {true,true,true,true};
 	TArray<bool> AnswersAllowed {true,true,true,true};
+	
 	for(uint8 i = 0; i < 4; i++)
 	{
 		if(Solution[i] == Answer[i])
@@ -84,7 +87,9 @@ bool AMasterMindGM::CheckAnswer(TArray<uint8> Answer)
 			}
 		}
 	}
-
+	
+	SpawnNewAnswer();
+	
 	OnSolutionChecked.Broadcast(GoodPlaces,WrongPlaces);
 	UE_LOG(LogTemp,Warning,TEXT("CheckAnswer Done"));
 	return result;
